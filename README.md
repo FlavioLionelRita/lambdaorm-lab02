@@ -157,8 +157,7 @@ schemas:
           - name: country
             from: countryCode
             entity: Countries
-            to: iso3
-		
+            to: iso3		
 ```
 
 ### Update

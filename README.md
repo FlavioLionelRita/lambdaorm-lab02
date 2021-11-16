@@ -143,22 +143,22 @@ schemas:
       - name: States
         extends: Positions
         primaryKey: ["id"]
-        uniqueKey: ["countryCode","name"]
+        uniqueKey: ["countryCode", "name"]
         properties:
           - name: id
             type: integer
             nullable: false
           - name: name
             nullable: false
-          - name: code
-            nullable: false
           - name: countryCode
             nullable: false
-		relations:
+            length: 3
+        relations:
           - name: country
             from: countryCode
             entity: Countries
-            to: iso3		
+            to: iso3
+		
 ```
 
 ### Update

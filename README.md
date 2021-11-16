@@ -154,7 +154,7 @@ schemas:
             nullable: false
           - name: countryCode
             nullable: false
-				relations:
+		relations:
           - name: country
             from: countryCode
             entity: Countries

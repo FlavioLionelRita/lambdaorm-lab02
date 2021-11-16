@@ -2,9 +2,24 @@
 
 In this laboratory we will see:
 
-- How to insert data from a file to more than one table.
+- how to create a project that uses lambda ORM
+- How to define a schema
 - how to extend entities using abstract entities
+- How to insert data from a file.
 - how to run queries from cli to perform different types of queries
+
+## Schema diagram
+
+In this scheme we can see how to extend entities.
+
+![schema](schema2.png)
+
+To understand an entity we use the extends attribute in the definition of the entity
+
+```yaml
+      - name: Countries
+        extends: Positions
+```
 
 ## Pre requirements
 
@@ -139,6 +154,11 @@ schemas:
             nullable: false
           - name: countryCode
             nullable: false
+				relations:
+          - name: country
+            from: countryCode
+            entity: Countries
+            to: iso3		
 ```
 
 ### Update

@@ -38,11 +38,13 @@ export class State extends Position {
 	id?: number
 	name?: string
 	countryCode?: string
+	country?: Country
 }
 export interface QryState extends QryPosition {
 	id: number
 	name: string
 	countryCode: string
+	country: Country & OneToMany<Country> & Country
 }
 export let Positions: Queryable<QryPosition>
 export let Countries: Queryable<QryCountry>

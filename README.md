@@ -86,12 +86,57 @@ In the creation of the project the schema was created but without any entity.
 Add the Country entity as seen in the following example
 
 ```yaml
-app:
-  src: src
-  data: data
-  models: models
-  defaultDatabase: mydb
-databases:
+entities:
+  - name: Positions
+    abstract: true
+    properties:
+      - name: latitude
+        length: 16
+      - name: longitude
+        length: 16
+  - name: Countries
+    extends: Positions
+    primaryKey: ["iso3"]
+    uniqueKey: ["name"]
+    properties:
+      - name: name
+        nullable: false
+      - name: iso3
+        length: 3
+        nullable: false
+      - name: iso2
+        nullable: false
+        length: 2
+      - name: capital
+      - name: currency
+      - name: region
+      - name: subregion
+    relations:
+      - name: states
+        type: manyToOne
+        composite: true
+        from: iso3
+        entity: States
+        to: countryCode
+  - name: States
+    extends: Positions
+    primaryKey: ["id"]
+    uniqueKey: ["countryCode", "name"]
+    properties:
+      - name: id
+        type: integer
+        nullable: false
+      - name: name
+        nullable: false
+      - name: countryCode
+        nullable: false
+        length: 3
+    relations:
+      - name: country
+        from: countryCode
+        entity: Countries
+        to: iso3
+dataSources:
   - name: mydb
     dialect: mysql
     schema: countries
@@ -104,60 +149,7 @@ databases:
       multipleStatements: true
       waitForConnections: true
       connectionLimit: 10
-      queueLimit: 0
-schemas:
-  - name: countries
-    enums: []
-    entities:
-      - name: Positions
-        abstract: true
-        properties:
-          - name: latitude
-            length: 16
-          - name: longitude
-            length: 16
-      - name: Countries
-        extends: Positions
-        primaryKey: ["iso3"]
-        uniqueKey: ["name"]
-        properties:
-          - name: name
-            nullable: false
-          - name: iso3
-            length: 3
-            nullable: false
-          - name: iso2
-            nullable: false
-            length: 2
-          - name: capital
-          - name: currency
-          - name: region
-          - name: subregion
-        relations:
-          - name: states
-            type: manyToOne
-            composite: true
-            from: iso3
-            entity: States
-            to: countryCode
-      - name: States
-        extends: Positions
-        primaryKey: ["id"]
-        uniqueKey: ["countryCode", "name"]
-        properties:
-          - name: id
-            type: integer
-            nullable: false
-          - name: name
-            nullable: false
-          - name: countryCode
-            nullable: false
-            length: 3
-        relations:
-          - name: country
-            from: countryCode
-            entity: Countries
-            to: iso3		
+      queueLimit: 0		
 ```
 
 ### Update

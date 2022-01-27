@@ -12,7 +12,7 @@ In this laboratory we will see:
 
 In this scheme we can see how to extend entities.
 
-![schema](schema2.png)
+![schema](schema2.svg)
 
 To understand an entity we use the extends attribute in the definition of the entity
 
